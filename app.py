@@ -327,6 +327,8 @@ let running = false;
 let ball = { x: 0, y: 0, vx: 0, vy: 0, r: 14 };
 let target = null;        // where student clicked
 let targetFlash = 0;
+let ballHit = false;  // true = planned touch (green flash), false = normal
+let ballDrop = false; // true = just dropped (red)
 let touches = 0, planned = 0, resets = 0;
 let frameId = null;
 const GRAVITY = 0.32;
@@ -415,6 +417,8 @@ function update() {
       touches++;
       targetFlash = 18;
       target = null;
+      ballHit = true;
+      setTimeout(() => { ballHit = false; }, 400);
       setMsg('PLANNED TOUCH ✓', '#4ade80');
       setTimeout(() => setMsg('PLAN YOUR NEXT TOUCH · CLICK AHEAD'), 700);
       // give the ball a controlled kick upward
@@ -442,7 +446,7 @@ function draw() {
   // ball shadow
   ctx.beginPath();
   ctx.ellipse(ball.x, canvas.height - 8, ball.r * 0.9, 4, 0, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(245,158,11,0.18)';
+  ctx.fillStyle = ballDrop ? 'rgba(239,68,68,0.2)' : 'rgba(74,222,128,0.18)';
   ctx.fill();
 
   // ball trajectory ghost (anticipation guide)
@@ -456,7 +460,7 @@ function draw() {
     const alpha = (1 - i / 28) * 0.25;
     ctx.beginPath();
     ctx.arc(gx, gy, 3, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(245,158,11,${alpha})`;
+    ctx.fillStyle = `rgba(74,222,128,${alpha})`;
     ctx.fill();
   }
 
@@ -492,15 +496,18 @@ function draw() {
     ctx.stroke();
   }
 
-  // ball
+  // ball — green (ready/planned), red (drop/react)
+  const ballColor1 = ballDrop ? '#FCA5A5' : (ballHit ? '#86efac' : '#86efac');
+  const ballColor2 = ballDrop ? '#EF4444' : (ballHit ? '#4ade80' : '#4ade80');
+  const ballShadow = ballDrop ? 'rgba(239,68,68,0.5)' : 'rgba(74,222,128,0.4)';
   const grad = ctx.createRadialGradient(ball.x - 4, ball.y - 4, 2, ball.x, ball.y, ball.r);
-  grad.addColorStop(0, '#fde68a');
-  grad.addColorStop(1, '#f59e0b');
+  grad.addColorStop(0, ballColor1);
+  grad.addColorStop(1, ballColor2);
   ctx.beginPath();
   ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
   ctx.fillStyle = grad;
-  ctx.shadowColor = 'rgba(245,158,11,0.5)';
-  ctx.shadowBlur = 12;
+  ctx.shadowColor = ballShadow;
+  ctx.shadowBlur = 14;
   ctx.fill();
   ctx.shadowBlur = 0;
 
