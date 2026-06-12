@@ -4,126 +4,64 @@ import datetime
 st.set_page_config(
     page_title="The Juggling Model | CognitiveCloud.ai",
     page_icon="⚽",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed",
 )
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 html, body, [class*="css"] {
-    font-family: 'Space Grotesk', sans-serif;
-    background-color: #0a0e1a;
-    color: #e8eaf0;
+    font-family: 'Inter', sans-serif;
+    background-color: #F8F7F4;
+    color: #333333;
 }
 #MainMenu, footer, header { visibility: hidden; }
-.block-container { padding: 2rem 1.5rem 4rem; max-width: 720px; }
+.block-container { padding: 2rem 2rem 4rem; max-width: 1100px; }
 
-.binary-bg {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: #1a1a2a;
-    letter-spacing: 4px;
-    text-align: center;
-    line-height: 2;
-    margin-bottom: -1.5rem;
-    animation: pulse 4s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.6} }
-
-.site-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: #4ade80;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 0.25rem;
-}
-.main-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    text-align: center;
-    color: #ffffff;
-    line-height: 1.1;
-    margin-bottom: 0.25rem;
-}
-.main-title span { color: #f59e0b; }
-.subtitle {
-    text-align: center;
-    font-size: 0.95rem;
-    color: #7a8399;
-    letter-spacing: 1px;
-    margin-bottom: 2rem;
-}
-.badge {
-    display: inline-block;
-    background: #111827;
-    border: 1px solid #2a3a2a;
-    border-radius: 999px;
-    padding: 0.3rem 1.1rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: #4ade80;
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
+.main-header { text-align:center; color:#6A0572; font-size:3rem; font-weight:bold; margin-bottom:1rem; }
+.sub-header  { text-align:center; color:#4B0082; font-size:1.8rem; margin-bottom:2rem; }
+.section-header {
+    color: #005A9C;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #E0E0E0;
+    padding-bottom: 0.5rem;
 }
 .card {
-    background: #111827;
-    border: 1px solid #1e2d3d;
-    border-radius: 16px;
-    padding: 1.8rem 2rem;
+    background-color: #FFFFFF;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     margin-bottom: 1.5rem;
+    border: 1px solid #E0E0E0;
 }
-.card-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    color: #f59e0b;
-    text-transform: uppercase;
-    margin-bottom: 0.6rem;
+.highlight-box {
+    background-color: #E8F5E9;
+    border-left: 5px solid #4CAF50;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
-.card h3 { font-size: 1.25rem; font-weight: 600; color: #ffffff; margin-bottom: 0.5rem; }
-.card p  { color: #9aa5b8; font-size: 0.95rem; line-height: 1.7; }
-.divider { border: none; border-top: 1px solid #1e2d3d; margin: 2rem 0; }
-.quote-block {
-    border-left: 3px solid #f59e0b;
-    padding: 0.8rem 1.2rem;
-    background: #0d1117;
-    border-radius: 0 10px 10px 0;
-    margin: 1rem 0;
-}
-.quote-block p { color: #f59e0b; font-size: 0.95rem; font-style: italic; margin: 0; }
-.resource-item {
-    background: #0d1117;
-    border: 1px solid #1e2d3d;
-    border-radius: 10px;
-    padding: 1rem 1.2rem;
-    margin-bottom: 0.75rem;
-}
-.resource-title { font-size: 0.9rem; font-weight: 600; color: #e8eaf0; margin-bottom: 0.2rem; }
-.resource-meta  { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #f59e0b; letter-spacing: 2px; }
-.resource-desc  { font-size: 0.82rem; color: #7a8399; margin-top: 0.3rem; line-height: 1.5; }
 .stButton > button {
-    background: #f59e0b !important;
-    color: #0a0e1a !important;
+    background-color: #005A9C !important;
+    color: white !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 25px !important;
+    font-weight: bold !important;
     border: none !important;
-    border-radius: 999px !important;
-    font-family: 'Space Mono', monospace !important;
-    font-size: 0.75rem !important;
-    letter-spacing: 2px !important;
-    padding: 0.6rem 2rem !important;
-    font-weight: 700 !important;
+    margin-top: 10px !important;
 }
-.stButton > button:hover { background: #fbbf24 !important; }
+.stButton > button:hover { background-color: #004070 !important; }
 .stTextArea textarea {
-    background: #0d1117 !important;
-    border: 1px solid #1e2d3d !important;
-    color: #e8eaf0 !important;
-    border-radius: 10px !important;
-    font-family: 'Space Grotesk', sans-serif !important;
+    border-radius: 8px !important;
+    border: 1px solid #E0E0E0 !important;
 }
+.stSelectbox > div > div { border-radius: 8px !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -132,58 +70,54 @@ if "persist_log" not in st.session_state:
     st.session_state.persist_log = []
 
 # ── HEADER ────────────────────────────────────────────────────────────────────
-st.markdown("""
-<div class="binary-bg">
-01110000 01100101 01110010 01110011 01101001 01110011 01110100<br>
-00000001 00000000 00000001 00000001 00000000 00000001 00000000<br>
-01110010 01100101 01110011 01100101 01110100 00100000 01110100
-</div>
-""", unsafe_allow_html=True)
+col1, col2 = st.columns([1, 4])
+with col1:
+    try:
+        st.image("https://placehold.co/80x80/6A0572/FFFFFF?text=CC", width=80)
+    except:
+        st.markdown("⚽")
+with col2:
+    st.markdown("### www.cognitivecloud.ai")
+    st.markdown("**Developed by Xavier Honablue M.Ed**")
 
-st.markdown('<div class="site-label">COGNITIVECLOUD.AI</div>', unsafe_allow_html=True)
-st.markdown('<div style="text-align:center; font-family:\'Space Grotesk\',sans-serif; font-size:1.05rem; font-weight:600; color:#4ade80; letter-spacing:1px; margin-bottom:0.15rem;">Positive Mindset Growth Mindset Math</div>', unsafe_allow_html=True)
-st.markdown('<div style="text-align:center; font-family:\'Space Mono\',monospace; font-size:0.7rem; color:#4a5568; letter-spacing:3px; margin-bottom:1rem;">COMMON CORE · GRADE 8 · 8.NS · PERSISTENCE</div>', unsafe_allow_html=True)
-st.markdown('<div class="main-title">THE JUGGLING<span> MODEL</span></div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">Plan. Execute. Reset. Never stop.</div>', unsafe_allow_html=True)
-st.markdown('<div style="text-align:center"><span class="badge">8.NS · MATHEMATICAL PRACTICE · MP1 + MP6</span></div>', unsafe_allow_html=True)
+st.markdown("---")
+st.markdown('<h1 class="main-header">⚽ CognitiveCloud.ai: The Juggling Model</h1>', unsafe_allow_html=True)
+st.markdown('<p class="sub-header">Positive Mindset Growth Mindset Math · Persistence</p>', unsafe_allow_html=True)
+st.markdown('<p style="text-align:center; color:#888; font-size:0.9rem; margin-bottom:2rem;">Common Core · Grade 8 · 8.NS · Mathematical Practice MP1 + MP6</p>', unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONCEPT — THE TWO MODELS
 # ═══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <div class="card">
-    <div class="card-label">The Concept · Plan vs. React</div>
-    <h3>Where does your mind go when it gets hard?</h3>
-    <p>
+    <h2 class="section-header">The Concept — Plan vs. React</h2>
+    <p style="font-size:1.1rem; line-height:1.7;">
         A free climber on a cliff doesn't look at where his hand <em>is</em> —
         he plans where it's <em>going</em>. One wrong reaction and he falls.
         Planning is the only move that keeps him on the wall.<br><br>
         A soccer player juggling a ball doesn't chase where it <em>landed</em> —
         she places her foot where it <em>will be</em>. React every time and you
         lose the ball. Anticipate and you stay in control.<br><br>
-        <strong style="color:#f59e0b">This is persistence.</strong>
-        Not grinding through chaos — but planning your next move
-        before the last one finishes.
+        <strong>This is persistence.</strong>
+        Not grinding through chaos — but planning your next move before the last one finishes.
     </p>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<div class="quote-block">
-    <p>"π never terminates. It never repeats. It just keeps going — and so do you."</p>
+    <div class="highlight-box">
+        <p style="font-weight:bold; color:#388E3C;">
+            "π never terminates. It never repeats. It just keeps going — and so do you."
+        </p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # INTERACTIVE — JUGGLING SIMULATION
 # ═══════════════════════════════════════════════════════════════════════════════
-st.markdown('<hr class="divider">', unsafe_allow_html=True)
+st.markdown("---")
 st.markdown("""
 <div class="card">
-    <div class="card-label">Interactive · The Juggling Sim</div>
-    <h3>Plan your touch. Don't chase the ball.</h3>
-    <p>
-        The ball will fall. Click <strong style="color:#f59e0b">where you predict it will land</strong>
+    <h2 class="section-header">Interactive — The Juggling Sim</h2>
+    <p style="font-size:1.1rem; line-height:1.7;">
+        The ball will fall. Click <strong>where you predict it will land</strong>
         before it gets there — not where it is right now.
         Every drop is a reset, not a failure.
         Your persistence score builds across attempts.
@@ -541,17 +475,15 @@ function setMsg(txt, color) {
 # ═══════════════════════════════════════════════════════════════════════════════
 # MATH BRIDGE — 8.NS PERSISTENCE
 # ═══════════════════════════════════════════════════════════════════════════════
-st.markdown('<hr class="divider">', unsafe_allow_html=True)
+st.markdown("---")
 st.markdown("""
 <div class="card">
-    <div class="card-label">Math Bridge · 8.NS + Persistence</div>
-    <h3>Irrational numbers never quit. Neither do you.</h3>
-    <p>
+    <h2 class="section-header">Math Bridge — 8.NS + Persistence</h2>
+    <p style="font-size:1.1rem; line-height:1.7;">
         An irrational number like π or √2 never terminates — it keeps going, digit after digit,
         never repeating, never stopping. You can't know it exactly, but you can
-        <strong style="color:#f59e0b">approximate it</strong> — plan where it is on the number line
-        and get closer with every attempt.<br><br>
-        That's the juggling model in math:
+        <strong>approximate it</strong> — plan where it is on the number line
+        and get closer with every attempt. That's the juggling model in math.
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -769,12 +701,11 @@ st.components.v1.html("""
 # ═══════════════════════════════════════════════════════════════════════════════
 # PERSISTENCE CHECK-IN
 # ═══════════════════════════════════════════════════════════════════════════════
-st.markdown('<hr class="divider">', unsafe_allow_html=True)
+st.markdown("---")
 st.markdown("""
 <div class="card">
-    <div class="card-label">Persistence Check-In</div>
-    <h3>Name your wall.</h3>
-    <p>
+    <h2 class="section-header">Persistence Check-In</h2>
+    <p style="font-size:1.1rem; line-height:1.7;">
         Every climber has a move on the wall that stops them.
         Every juggler has a rhythm they haven't found yet.
         What's the 8th grade math concept that feels like your hardest hold?
@@ -817,28 +748,27 @@ with col2:
         st.success("✅ Plan locked. Reset. Go again.")
 
 if st.session_state.persist_log:
-    st.markdown('<hr class="divider">', unsafe_allow_html=True)
-    st.markdown('<div style="font-family:\'Space Mono\',monospace; font-size:0.7rem; color:#f59e0b; letter-spacing:3px; margin-bottom:1rem;">PERSISTENCE LOG · YOUR PLANNED TOUCHES</div>', unsafe_allow_html=True)
+    st.markdown("---")
+    st.markdown("<h3 style='color:#005A9C;'>Persistence Log — Your Planned Touches</h3>", unsafe_allow_html=True)
     for entry in st.session_state.persist_log:
         st.markdown(f"""
-        <div style="border-left:2px solid #f59e0b; padding:0.6rem 1rem; margin-bottom:0.75rem; background:#0d1117; border-radius:0 8px 8px 0;">
-            <div style="font-family:'Space Mono',monospace; font-size:0.65rem; color:#f59e0b; letter-spacing:2px;">{entry['date']}</div>
-            {f'<div style="font-size:0.85rem; color:#9aa5b8; margin-top:0.2rem;">Wall: {entry["wall"]}</div>' if entry.get('wall') else ''}
-            <div style="font-size:0.85rem; color:#e8eaf0; margin-top:0.2rem;">⚽ {entry['plan']}</div>
+        <div style="border-left:4px solid #4CAF50; padding:0.6rem 1rem; margin-bottom:0.75rem; background:#E8F5E9; border-radius:0 8px 8px 0;">
+            <div style="font-size:0.75rem; color:#388E3C; font-weight:600;">{entry['date']}</div>
+            {f'<div style="font-size:0.9rem; color:#555; margin-top:0.2rem;">Wall: {entry["wall"]}</div>' if entry.get('wall') else ''}
+            <div style="font-size:0.9rem; color:#333; margin-top:0.2rem; font-weight:500;">⚽ {entry['plan']}</div>
         </div>
         """, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # EDUCATOR RESOURCES
 # ═══════════════════════════════════════════════════════════════════════════════
-st.markdown('<hr class="divider">', unsafe_allow_html=True)
+st.markdown("---")
 st.markdown("""
 <div class="card">
-    <div class="card-label">Educator Resources · Research</div>
-    <h3>Locomotion, Motor Skills & Cognitive Development</h3>
-    <p>
+    <h2 class="section-header">Educator Resources — Research</h2>
+    <p style="font-size:1.1rem; line-height:1.7;">
         The connection between physical movement, planning, and mathematical thinking
-        is well-documented. These resources ground the Juggling Model in research.
+        is well-documented. Expand each resource below to learn more.
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -846,57 +776,58 @@ st.markdown("""
 resources = [
     {
         "title": "Motor Skill Development and Mathematical Achievement",
-        "meta": "JOURNAL OF EDUCATIONAL PSYCHOLOGY · RESEARCH",
+        "meta": "Journal of Educational Psychology · Research",
         "desc": "Studies show fine and gross motor skill proficiency in early grades is a significant predictor of later mathematical achievement, suggesting shared neural pathways between spatial-motor planning and numerical reasoning.",
         "url": "https://doi.org/10.1037/edu0000660"
     },
     {
         "title": "Embodied Cognition: How Movement Shapes Mathematical Thinking",
-        "meta": "COGNITIVE SCIENCE · FOUNDATIONAL THEORY",
+        "meta": "Cognitive Science · Foundational Theory",
         "desc": "Embodied cognition research demonstrates that physical experience — including locomotion and gesture — directly shapes abstract mathematical understanding, including number line estimation and spatial reasoning.",
         "url": "https://www.sciencedirect.com/science/article/pii/S0010027713001704"
     },
     {
         "title": "Anticipatory Motor Planning in Expert Jugglers",
-        "meta": "NEUROPSYCHOLOGIA · MOTOR NEUROSCIENCE",
+        "meta": "Neuropsychologia · Motor Neuroscience",
         "desc": "Expert jugglers show heightened predictive brain activity in regions associated with spatial planning and executive function — the same regions activated during complex mathematical problem solving.",
         "url": "https://www.sciencedirect.com/science/article/abs/pii/S0028393209004801"
     },
     {
         "title": "Physical Activity, Executive Function, and Academic Achievement",
-        "meta": "BRITISH JOURNAL OF EDUCATIONAL PSYCHOLOGY · META-ANALYSIS",
+        "meta": "British Journal of Educational Psychology · Meta-Analysis",
         "desc": "Meta-analysis of 26 studies finds consistent positive relationships between structured physical activity involving planning (not just aerobic activity) and executive function, which mediates math performance.",
         "url": "https://bpspsychub.onlinelibrary.wiley.com/doi/abs/10.1111/bjep.12355"
     },
     {
         "title": "The Role of Spatial Skills in Mathematics: A Meta-Analytic Review",
-        "meta": "PSYCHOLOGICAL BULLETIN · META-ANALYSIS",
+        "meta": "Psychological Bulletin · Meta-Analysis",
         "desc": "Spatial skills — closely linked to locomotor planning and body awareness — are among the strongest predictors of mathematical competence across all grade levels, particularly in number sense and algebra.",
         "url": "https://doi.org/10.1037/bul0000349"
     },
     {
         "title": "Growth Mindset and Persistence in STEM: Longitudinal Evidence",
-        "meta": "CHILD DEVELOPMENT · LONGITUDINAL STUDY",
+        "meta": "Child Development · Longitudinal Study",
         "desc": "Students with growth mindset who are taught persistence strategies through embodied metaphors (physical challenge + reset framing) show greater gains in math self-efficacy and problem-solving endurance.",
         "url": "https://srcd.onlinelibrary.wiley.com/doi/abs/10.1111/cdev.13527"
     },
 ]
 
 for r in resources:
-    st.markdown(f"""
-    <div class="resource-item">
-        <div class="resource-title">{r['title']}</div>
-        <div class="resource-meta">{r['meta']}</div>
-        <div class="resource-desc">{r['desc']}</div>
-        <a href="{r['url']}" target="_blank" style="font-family:'Space Mono',monospace; font-size:0.6rem; color:#f59e0b; letter-spacing:2px; text-decoration:none; margin-top:0.4rem; display:inline-block;">VIEW RESEARCH →</a>
-    </div>
-    """, unsafe_allow_html=True)
+    with st.expander(f"📄 {r['title']}"):
+        st.markdown(f"""
+        <div style="padding:0.5rem 0;">
+            <p style="font-size:0.75rem; color:#005A9C; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:0.5rem;">{r['meta']}</p>
+            <p style="font-size:1rem; line-height:1.7; color:#333; margin-bottom:1rem;">{r['desc']}</p>
+            <a href="{r['url']}" target="_blank" style="background:#005A9C; color:white; padding:0.4rem 1.2rem; border-radius:20px; font-size:0.85rem; font-weight:bold; text-decoration:none;">View Research →</a>
+        </div>
+        """, unsafe_allow_html=True)
 
+# ── Footer
 # ── Footer ────────────────────────────────────────────────────────────────────
+st.markdown("---")
 st.markdown("""
-<div style="text-align:center; padding:3rem 0 1rem; border-top:1px solid #1e2d3d; margin-top:3rem;">
-    <p style="font-family:'Space Mono',monospace; font-size:0.65rem; color:#2a3a2a; letter-spacing:3px;">
-        COGNITIVECLOUD.AI · XAVIER HONABLUE M.ED · 8.NS · THE JUGGLING MODEL
-    </p>
+<div style="text-align:center; margin-top:2rem; color:#666;">
+    <p>💡 <strong>Empowering Young Minds in STEAM</strong></p>
+    <p>Developed by Xavier Honablue M.Ed for CognitiveCloud.ai Education</p>
 </div>
 """, unsafe_allow_html=True)
